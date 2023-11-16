@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style type="text/css">
+        .main{
+            background-image: url(7.png);
+            background-size: cover;
+            
+            
+        }
+        .item {
+            width: 150px;
+            height: 150px;
+            background-size:100%;
+            background-repeat: no-repeat;
+            margin-top: 20px;
+            margin-left: 20px;
+            
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            height: 200px;
+            width: 800px;
+            margin-left: 400px;
+            
+            margin-top: 50px;
+        }
+        .activ{
+            border: 2px white;
+            box-shadow: inset 0px 0px 81px 17px  white, 0px 0px 20px 4px white;
+        }
+        .text{
+            color: black;
+            margin-left: 680px;
+            font-size: 50px;
+        }
+        .jpg{
+            display: none; 
+            
+            height: 350px;
+            position: absolute;
+        
+            left: 450px;
+        }
+        .jpg1{
+            display: none; 
+            
+            height: 350px;
+            position: absolute;
+        
+            left: 450px;
+        }
+        
+    </style>
+</head>
+<body class="main">
+    <img src="9.png" class="jpg">
+     <img src="10.png" class="jpg1">
+    <h3 class="text">Time:<span class="time">10</span></h3>
+    <div class="row">
+    </div>
+    <script type="text/javascript">
+    //див-родитель
+    let row = document.querySelector(".row");
+    let past_img
+    let step = 0
+    let T = 11
+    let time = document.querySelector('.time')
+    let point = 0
+    let jpg = document.querySelector('.jpg')
+    let jpg1 = document.querySelector('.jpg1')
+
+
+    //хранение картинок
+    let images = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "1.png", "2.png", "3.png", "4.png", "5.png", "6.png"];
+    for(i=0; i<12; i=i+1){
+        let item = document.createElement('div')
+        row.appendChild(item) 
+        item.classList.add('item')
+        let index = Math.round(Math.random()*(images.length-1))     
+         item.style.backgroundImage = 'url('+images[index]+')'
+         images.splice(index, 1)
+
+         item.onclick = function(){
+            step = step +1
+                       
+             item.classList.add('activ')
+
+            if(step == 1){
+                past_img=item.style.backgroundImage
+                firstDiv = item
+                
+
+
+            }
+            if(step>=2){
+            
+            if(item.style.backgroundImage == past_img){
+                item.style.opacity = '0'
+                firstDiv.style.opacity = '0'
+                point = point + 1
+                step = 0
+
+                }else {
+                   
+                    item.classList.remove('activ')
+                    firstDiv.classList.remove('activ')
+                     step = 0
+                }
+
+            }
+         }
+         
+    }
+                 let Timer = function(){
+                     T = T - 1
+                     time.innerHTML = T
+                }
+
+         let endGame = function(){
+            time.innerHTML = 0
+            clearInterval(int)
+            row.style.display = 'none'
+
+            if(point==6){
+                alert ('you win')
+                jpg.style.display = 'block'
+
+            }else{
+                alert ('you lose')
+                jpg1.style.display = 'block'
+            }
+        }
+
+    int = setInterval(Timer, 1000)
+    setTimeout(endGame, 10000)
+    </script>
+</body>
+</html>
